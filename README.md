@@ -1,28 +1,40 @@
-# Pluralsight: Agent-to-Agent Protocol - Course Code
+# A2A Agent Course - Multi-Agent AI Systems with Agent-to-Agent Protocol
 
-This code is for the Pluralsight Agent-to-Agent Protocol course by Kesha Williams.
-![Course Image](course_image.png)
+![A2A Protocol Banner](a2a-banner.png)
+
+Build intelligent multi-agent systems using the Agent-to-Agent (A2A) protocol. This course demonstrates how to create, orchestrate, and deploy AI agents across multiple frameworks.
+
+---
+
+## Technology Stack
+
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg?style=flat-square)](https://python.org)
+[![OpenAI Agents SDK](https://img.shields.io/badge/OpenAI%20Agents%20SDK-v0.2.0-00DD00.svg?style=flat-square)](https://github.com/openai/openai-agents-python)
+[![LangGraph](https://img.shields.io/badge/LangGraph-0.1+-FF6B6B.svg?style=flat-square)](https://github.com/langchain-ai/langgraph)
+[![CrewAI](https://img.shields.io/badge/CrewAI-v0.80+-6B5B95.svg?style=flat-square)](https://github.com/crewai/crewai)
+[![A2A Protocol](https://img.shields.io/badge/A2A%20Protocol-v1.0-4ECDC4.svg?style=flat-square)](https://github.com/a2aproject/a2a)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg?style=flat-square)](https://docker.com)
 
 ---
 
 ## Module 1: A2A Protocol Architecture and Core Concepts
 
-A single demo agent that simulates a contract review workflow. No LLM or API keys required. 
+A single demo agent that simulates a contract review workflow. No LLM or API keys required.
 
 ### Files
 
 ```
-clip-2-exploring-agent-cards-and-capability-discovery/
+Module1/clip-2-exploring-agent-cards-and-capability-discovery/
   __main__.py          # A2A server: agent card with AgentInterface, skill, server setup
   agent_executor.py    # Agent logic + AgentExecutor with full task lifecycle
   test_client.py       # Client using protobuf types from a2a.types.a2a_pb2
   requirements.txt     # Dependencies
 ```
 
-### Setup (GitHub Codespaces)
+### Setup
 
 ```bash
-cd clip-2-exploring-agent-cards-and-capability-discovery
+cd Module1/clip-2-exploring-agent-cards-and-capability-discovery
 python -m venv .venv
 source .venv/bin/activate
 pip install -r ../../requirements.txt
@@ -48,6 +60,8 @@ python test_client.py
 ```
 
 The client fetches the agent card, sends a sample contract with five risk clauses, and prints the task lifecycle output (WORKING status, artifact with risk assessment, COMPLETED status).
+
+---
 
 ## Module 2: Building A2A Agents Across Frameworks
 
@@ -81,7 +95,7 @@ Module2/
   .env.example                  # Template for API key
 ```
 
-### Setup (GitHub Codespaces)
+### Setup
 
 ```bash
 cd Module2
@@ -169,7 +183,7 @@ Module3/
   .env.example                           # Template for API key
 ```
 
-### Setup (GitHub Codespaces)
+### Setup
 
 ```bash
 cd Module3
@@ -214,9 +228,9 @@ cd Module3 && source .venv/bin/activate
 python user_orchestrator.py
 ```
 
-### Clip 3 Failure Demo
+### Failure Handling Demo
 
-To simulate a failure for Clip 3:
+To simulate a failure for testing retry logic:
 1. Stop the compliance agent (kill Terminal 2)
 2. Run `python user_orchestrator.py` and send request 3
 3. The orchestrator retries three times, then returns partial results with a failure note
@@ -241,7 +255,7 @@ Module4/
   .env.example                  # Template for API key + bearer token
 ```
 
-### Setup (GitHub Codespaces)
+### Setup
 
 ```bash
 cd Module4
@@ -251,7 +265,8 @@ pip install -r requirements.txt
 cp .env.example .env
 # Edit .env and paste your OpenAI API key
 ```
-### Running the Secured Agent 
+
+### Running the Secured Agent
 
 The secured agent needs `triage_agent.py` from Module 2 in the same directory (or on the Python path).
 
@@ -275,7 +290,7 @@ curl -s http://localhost:9999/.well-known/agent-card.json | python -m json.tool
 
 The agent card endpoint is public (no auth required). All other endpoints require the bearer token.
 
-### Running the A2A Inspector 
+### Running the A2A Inspector
 
 ```bash
 git clone https://github.com/a2aproject/a2a-inspector.git
@@ -286,14 +301,14 @@ docker run -d --network host --name a2a-inspector a2a-inspector
 
 In Codespaces, go to the **Ports** tab, find port 8080, and click the globe icon to open the Inspector in your browser. For the agent URL in the Inspector UI, copy the forwarded URL for port 9999 from the Ports tab (looks like `https://your-codespace-9999.app.github.dev/`). The `--network host` flag lets the Inspector reach agents on localhost when sending messages.
 
-### Running the Tests 
+### Running the Tests
 
 With an agent running on port 9999:
 ```bash
 pytest test_protocol.py -v
 ```
 
-### Agent Stack Deployment 
+### Agent Stack Deployment
 
 If Agent Stack is installed:
 ```bash
@@ -302,3 +317,9 @@ agentstack list
 agentstack run document-triage "This is a vendor agreement with an SLA."
 agentstack ui
 ```
+
+---
+
+## License
+
+Apache License 2.0 - See [LICENSE](LICENSE) for details.
