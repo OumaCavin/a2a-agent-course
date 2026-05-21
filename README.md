@@ -6,6 +6,60 @@ Build intelligent multi-agent systems using the Agent-to-Agent (A2A) protocol. T
 
 ---
 
+## Getting Started
+
+### Prerequisites
+
+- Python 3.11 or higher
+- pip package manager
+- Git
+- Docker (optional, for A2A Inspector and Agent Stack deployment)
+- OpenAI API key (required for Modules 2-4)
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/OumaCavin/a2a-agent-course.git
+cd a2a-agent-course
+```
+
+### Quick Setup
+
+1. **Install dependencies:**
+```bash
+# For Module 1 (no API key required)
+cd Module1/clip-2-exploring-agent-cards-and-capability-discovery
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+2. **Run Module 1 (no API key needed):**
+```bash
+# Terminal 1 - Start the agent
+python __main__.py
+
+# Terminal 2 - Test the agent
+curl -s http://localhost:9999/.well-known/agent-card.json | python -m json.tool
+python test_client.py
+```
+
+3. **For Modules 2-4 (requires OpenAI API key):**
+```bash
+cd Module2
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+# Edit .env and add your OPENAI_API_KEY
+```
+
+### Running All Modules
+
+See individual module sections below for detailed instructions on running each module with multiple agents.
+
+---
+
 ## Technology Stack
 
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg?style=flat-square)](https://python.org)
