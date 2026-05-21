@@ -1,0 +1,2 @@
+[console_scripts]
+server = agentstack_agents.triage_agent:run

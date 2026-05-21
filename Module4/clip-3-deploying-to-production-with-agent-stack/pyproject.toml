@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "triage_agent"
+version = "0.1.0"
+description = "Document triage agent for the A2A Protocol Pluralsight course"
+requires-python = ">=3.12"
+dependencies = [
+    "agentstack-sdk>=0.7.0",
+    "openai-agents>=0.13.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.scripts]
+server = "agentstack_agents.triage_agent:run"
+
+[tool.uv]
+package = true
+
+[tool.setuptools]
+package-dir = { "" = "." }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["agentstack_agents*"]
