@@ -1,62 +1,565 @@
-# A2A Agent Course - Multi-Agent AI Systems with Agent-to-Agent Protocol
+# A2A Multi-Agent System
 
 ![A2A Protocol Banner](a2a-banner.png)
 
-Build intelligent multi-agent systems using the Agent-to-Agent (A2A) protocol. This course demonstrates how to create, orchestrate, and deploy AI agents across multiple frameworks.
+Build intelligent multi-agent systems using the Agent-to-Agent (A2A) protocol. This project demonstrates how to create, orchestrate, and deploy AI agents across multiple frameworks including OpenAI Agents SDK, LangGraph, and CrewAI.
 
 ---
 
-## Getting Started
+## Table of Contents
 
-### Prerequisites
+- [Prerequisites](#prerequisites)
+- [Clone and Setup](#clone-and-setup)
+- [Quick Start](#quick-start)
+- [Modules](#modules)
+  - [Module 1: A2A Protocol Architecture](#module-1-a2a-protocol-architecture)
+  - [Module 2: Building A2A Agents Across Frameworks](#module-2-building-a2a-agents-across-frameworks)
+  - [Module 3: Orchestration Patterns](#module-3-orchestration-patterns)
+  - [Module 4: Security and Deployment](#module-4-security-and-deployment)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
 
-- Python 3.11 or higher
-- pip package manager
-- Git
-- Docker (optional, for A2A Inspector and Agent Stack deployment)
-- OpenAI API key (required for Modules 2-4)
+---
 
-### Clone the Repository
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+| Requirement | Version | Notes |
+|------------|---------|-------|
+| Python | 3.11+ | Required for all modules |
+| pip | Latest | For installing dependencies |
+| Git | Any recent version | For cloning the repository |
+| Docker | Optional | Only for A2A Inspector and Agent Stack |
+
+### Required API Keys
+
+- **OpenAI API Key**: Required for Modules 2, 3, and 4
+  - Get yours at [OpenAI Platform](https://platform.openai.com/api-keys)
+
+### Optional Tools
+
+- **Docker**: For running A2A Inspector for testing and debugging
+- **Agent Stack**: For production deployment (optional)
+
+---
+
+## Clone and Setup
+
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/OumaCavin/a2a-agent-course.git
-cd a2a-agent-course
+git clone https://github.com/OumaCavin/a2a-multi-agent-system.git
+cd a2a-multi-agent-system
 ```
 
-### Quick Setup
+### 2. Create Virtual Environment (Root Level)
 
-1. **Install dependencies:**
+For all modules, create a virtual environment at the root level:
+
 ```bash
-# For Module 1 (no API key required)
-cd Module1/clip-2-exploring-agent-cards-and-capability-discovery
+# Create virtual environment
 python -m venv .venv
+
+# Activate it
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-2. **Run Module 1 (no API key needed):**
+### 3. Set Up Environment Variables
+
+For Modules 2, 3, and 4, you need an OpenAI API key:
+
 ```bash
-# Terminal 1 - Start the agent
+# Copy environment template
+cp Module2/.env.example Module2/.env
+
+# Edit the .env file with your API key
+# On Linux/Mac: use nano, vim, or any text editor
+nano Module2/.env
+
+# Same for other modules
+cp Module3/.env.example Module3/.env
+cp Module4/.env.example Module4/.env
+```
+
+Your `.env` file should look like:
+```env
+OPENAI_API_KEY=sk-your-actual-api-key-here
+```
+
+---
+
+## Quick Start
+
+### Module 1 (No API Key Required)
+
+The fastest way to see A2A in action:
+
+```bash
+cd Module1/clip-2-exploring-agent-cards-and-capability-discovery
+
+# Run the agent
 python __main__.py
 
-# Terminal 2 - Test the agent
+# In another terminal, test it
 curl -s http://localhost:9999/.well-known/agent-card.json | python -m json.tool
 python test_client.py
 ```
 
-3. **For Modules 2-4 (requires OpenAI API key):**
+### Module 2 (Requires OpenAI API Key)
+
+Run all four agents together:
+
 ```bash
+# Terminal 1 - Start Triage Agent
+python Module2/a2a_triage_agent.py
+
+# Terminal 2 - Start Contract Review Agent
+python Module2/a2a_contract_review_agent.py
+
+# Terminal 3 - Start Compliance Checker Agent
+python Module2/a2a_compliance_agent.py
+
+# Terminal 4 - Start Client Agent
+python Module2/a2a_client_agent.py
+
+# Terminal 5 - Test the system
+python Module2/user.py
+```
+
+---
+
+## Modules
+
+---
+
+## Module 1: A2A Protocol Architecture
+
+Learn the core concepts of the A2A protocol, including agent cards, capability discovery, and task lifecycle.
+
+### No API Key Required
+
+This module is completely self-contained and does not require any external API keys.
+
+### Files
+
+```
+Module1/clip-2-exploring-agent-cards-and-capability-discovery/
+  __main__.py          # A2A server with agent card and skills
+  agent_executor.py    # Agent logic and task execution
+  test_client.py       # Client for testing the agent
+```
+
+### Setup
+
+```bash
+cd Module1/clip-2-exploring-agent-cards-and-capability-discovery
+pip install -r ../../requirements.txt
+```
+
+### Running the Demo
+
+**Terminal 1 - Start the Agent:**
+```bash
+python __main__.py
+```
+
+You should see output similar to:
+```
+Starting A2A server on port 9999...
+Visit http://localhost:9999/.well-known/agent-card.json to see agent capabilities
+```
+
+**Terminal 2 - Test the Agent:**
+```bash
+# Fetch the agent card
+curl -s http://localhost:9999/.well-known/agent-card.json | python -m json.tool
+
+# Run the test client
+python test_client.py
+```
+
+Expected output:
+```
+Task created with ID: task_uuid_here
+Task status: WORKING
+Task status: COMPLETED
+Task result:
+- Risk Assessment: 5 risk clauses identified
+- Overall Risk Level: HIGH
+```
+
+---
+
+## Module 2: Building A2A Agents Across Frameworks
+
+Build three specialized agents using different frameworks and connect them via the A2A protocol.
+
+### Prerequisites
+
+- OpenAI API key configured in `Module2/.env`
+
+### Architecture
+
+```
+User -> Client Agent (port 9996)
+           |
+           +-> Triage Agent (port 9999)      [OpenAI Agents SDK]
+           +-> Contract Review Agent (port 9998) [LangGraph]
+           +-> Compliance Checker Agent (port 9997) [CrewAI]
+```
+
+### Files
+
+```
+Module2/
+  a2a_triage_agent.py           # Document triage with OpenAI Agents SDK
+  a2a_contract_review_agent.py  # Contract analysis with LangGraph
+  a2a_compliance_agent.py       # Compliance checking with CrewAI
+  a2a_client_agent.py           # Orchestrating client agent
+  triage_agent.py               # Triage business logic
+  user.py                       # User interaction script
+  requirements.txt              # Module dependencies
+  .env.example                  # Environment template
+```
+
+### Setup
+
+```bash
+# Navigate to module
 cd Module2
+
+# Create and activate virtual environment
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Configure environment
 cp .env.example .env
 # Edit .env and add your OPENAI_API_KEY
 ```
 
-### Running All Modules
+### Running the Full System
 
-See individual module sections below for detailed instructions on running each module with multiple agents.
+**Important**: Run each agent in a separate terminal.
+
+```bash
+# Activate virtual environment in each terminal
+cd Module2 && source .venv/bin/activate
+```
+
+**Terminal 1 - Triage Agent:**
+```bash
+cd Module2
+python a2a_triage_agent.py
+```
+
+**Terminal 2 - Contract Review Agent:**
+```bash
+cd Module2
+python a2a_contract_review_agent.py
+```
+
+**Terminal 3 - Compliance Checker Agent:**
+```bash
+cd Module2
+python a2a_compliance_agent.py
+```
+
+**Terminal 4 - Client Agent:**
+```bash
+cd Module2
+python a2a_client_agent.py
+```
+
+You should see agent discovery output:
+```
+Starting A2A Client Agent
+Discovering remote agents...
+  Discovered: DocumentTriageAgent at http://localhost:9999
+  Discovered: ContractReviewAgent at http://localhost:9998
+  Discovered: ComplianceCheckerAgent at http://localhost:9997
+Discovered 3 remote agent(s)
+```
+
+**Terminal 5 - User Interaction:**
+```bash
+cd Module2
+python user.py
+```
+
+### Verifying All Agent Cards
+
+```bash
+curl -s http://localhost:9999/.well-known/agent-card.json | python -m json.tool
+curl -s http://localhost:9998/.well-known/agent-card.json | python -m json.tool
+curl -s http://localhost:9997/.well-known/agent-card.json | python -m json.tool
+curl -s http://localhost:9996/.well-known/agent-card.json | python -m json.tool
+```
+
+---
+
+## Module 3: Orchestration Patterns
+
+Implement advanced orchestration patterns including task decomposition, hierarchical delegation, and failure handling.
+
+### Prerequisites
+
+- OpenAI API key configured in `Module3/.env`
+- Triage Agent and Compliance Agent from Module 2
+
+### Architecture
+
+```
+User -> Orchestrator (port 9996)
+           |
+           +-> Triage Agent (port 9999)      [Reuse from Module 2]
+           +-> Contract Review Agent (port 9998) [Hierarchical delegation]
+           |       |
+           |       +-> Compliance Checker Agent (port 9997) [Sub-agent]
+           +-> Compliance Checker Agent (port 9997) [Reuse from Module 2]
+```
+
+### Files
+
+```
+Module3/
+  a2a_orchestrator_agent.py           # Main orchestrator with retry logic
+  a2a_contract_review_hierarchical.py # Contract review with sub-delegation
+  user_orchestrator.py                # User interaction for orchestration
+  requirements.txt                   # Module dependencies
+  .env.example                       # Environment template
+```
+
+### Setup
+
+```bash
+cd Module3
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+# Edit .env with your OPENAI_API_KEY
+```
+
+### Running the System
+
+**Terminal 1 - Triage Agent (reuse from Module 2):**
+```bash
+cd Module2 && source .venv/bin/activate
+python a2a_triage_agent.py
+```
+
+**Terminal 2 - Compliance Checker Agent (reuse from Module 2):**
+```bash
+cd Module2 && source .venv/bin/activate
+python a2a_compliance_agent.py
+```
+
+**Terminal 3 - Contract Review Agent with Hierarchical Delegation:**
+```bash
+cd Module3 && source .venv/bin/activate
+python a2a_contract_review_hierarchical.py
+```
+
+**Terminal 4 - Orchestrator Agent:**
+```bash
+cd Module3 && source .venv/bin/activate
+python a2a_orchestrator_agent.py
+```
+
+**Terminal 5 - User Interaction:**
+```bash
+cd Module3 && source .venv/bin/activate
+python user_orchestrator.py
+```
+
+### Testing Failure Handling
+
+To test retry logic:
+1. Stop the Compliance Agent (Terminal 2)
+2. Run user interaction and select request 3
+3. Observe the orchestrator retrying 3 times
+4. Restart the Compliance Agent
+5. Run the same request to confirm recovery
+
+---
+
+## Module 4: Security and Deployment
+
+Implement authentication, authorization, testing, and production deployment.
+
+### Prerequisites
+
+- OpenAI API key configured in `Module4/.env`
+- Basic understanding of Docker (optional)
+- Pytest for running tests
+
+### Files
+
+```
+Module4/
+  a2a_triage_agent_secured.py  # Secured agent with bearer token auth
+  test_protocol.py            # Protocol compliance tests
+  agent_stack_triage.py       # Agent Stack SDK wrapper
+  Dockerfile                  # Container configuration
+  requirements.txt            # Module dependencies
+  requirements-agentstack.txt # Agent Stack specific dependencies
+  .env.example                # Environment template
+```
+
+### Setup
+
+```bash
+cd Module4
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+# Edit .env with OPENAI_API_KEY and BEARER_TOKEN
+```
+
+### Running the Secured Agent
+
+The secured agent requires the triage logic from Module 2:
+
+```bash
+# Copy the triage agent logic
+cp ../Module2/triage_agent.py .
+
+# Start the secured agent
+python a2a_triage_agent_secured.py
+```
+
+### Testing Authentication
+
+**Without token (rejected):**
+```bash
+curl -s -X POST http://localhost:9999/ \
+  -H "Content-Type: application/json" \
+  -d '{}'
+# Expected: 401 Unauthorized
+```
+
+**With token (accepted):**
+```bash
+curl -s http://localhost:9999/.well-known/agent-card.json | python -m json.tool
+# Expected: Agent card JSON response
+```
+
+### Running Protocol Tests
+
+```bash
+# Ensure an agent is running on port 9999
+cd Module4
+pytest test_protocol.py -v
+```
+
+### Running A2A Inspector (Docker Required)
+
+```bash
+git clone https://github.com/a2aproject/a2a-inspector.git
+cd a2a-inspector
+docker build -t a2a-inspector .
+docker run -d --network host --name a2a-inspector a2a-inspector
+```
+
+Access the Inspector at http://localhost:8080
+
+### Agent Stack Deployment
+
+```bash
+# Initialize Agent Stack
+agentstack init
+
+# Add the project
+agentstack add .
+
+# List available agents
+agentstack list
+
+    # Run a specific agent
+agentstack run document-triage "Analyze this vendor agreement"
+
+# Start the Agent Stack UI
+agentstack ui
+```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+#### 1. Port Already in Use
+
+If you get "Address already in use" errors:
+```bash
+# Find the process using the port
+lsof -i :9999  # Linux
+netstat -ano | findstr :9999  # Windows
+
+# Kill the process
+kill -9 <PID>  # Linux
+taskkill /F /PID <PID>  # Windows
+```
+
+#### 2. API Key Not Working
+
+- Ensure the key is correctly set in `.env` (no quotes, no spaces)
+- Verify the key is active at [OpenAI Platform](https://platform.openai.com/)
+- Check for billing/credit issues
+
+#### 3. Module Import Errors
+
+Always activate the virtual environment:
+```bash
+source .venv/bin/activate  # Linux/Mac
+.venv\Scripts\activate  # Windows
+```
+
+#### 4. Docker Permissions Issues
+
+On Linux, use sudo if needed:
+```bash
+sudo docker run -d --network host --name a2a-inspector a2a-inspector
+```
+
+#### 5. Agent Discovery Fails
+
+- Ensure all agents are running before starting the client/orchestrator
+- Check that all agents are on the same network (for Docker: use `--network host`)
+- Verify ports are not blocked by firewall
+
+#### 6. Virtual Environment Issues
+
+If `.venv` is not working properly:
+```bash
+# Remove and recreate
+rm -rf .venv
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### Getting Help
+
+- Check agent logs for detailed error messages
+- Verify all ports are accessible
+- Ensure no firewall is blocking localhost connections
+- Check OpenAI API status at [status.openai.com](https://status.openai.com/)
+
+---
+
+## License
+
+Apache License 2.0 - See [LICENSE](LICENSE) for details.
 
 ---
 
@@ -68,312 +571,3 @@ See individual module sections below for detailed instructions on running each m
 [![CrewAI](https://img.shields.io/badge/CrewAI-v0.80+-6B5B95.svg?style=flat-square)](https://github.com/crewai/crewai)
 [![A2A Protocol](https://img.shields.io/badge/A2A%20Protocol-v1.0-4ECDC4.svg?style=flat-square)](https://github.com/a2aproject/a2a)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg?style=flat-square)](https://docker.com)
-
----
-
-## Module 1: A2A Protocol Architecture and Core Concepts
-
-A single demo agent that simulates a contract review workflow. No LLM or API keys required.
-
-### Files
-
-```
-Module1/clip-2-exploring-agent-cards-and-capability-discovery/
-  __main__.py          # A2A server: agent card with AgentInterface, skill, server setup
-  agent_executor.py    # Agent logic + AgentExecutor with full task lifecycle
-  test_client.py       # Client using protobuf types from a2a.types.a2a_pb2
-  requirements.txt     # Dependencies
-```
-
-### Setup
-
-```bash
-cd Module1/clip-2-exploring-agent-cards-and-capability-discovery
-python -m venv .venv
-source .venv/bin/activate
-pip install -r ../../requirements.txt
-```
-
-No `.env` file needed. No API keys.
-
-### Running the Demo
-
-**Terminal 1 - Start the agent server:**
-```bash
-python __main__.py
-```
-
-**Terminal 2 - Fetch the agent card:**
-```bash
-curl -s http://localhost:9999/.well-known/agent-card.json | python -m json.tool
-```
-
-**Terminal 2 - Run the full test client:**
-```bash
-python test_client.py
-```
-
-The client fetches the agent card, sends a sample contract with five risk clauses, and prints the task lifecycle output (WORKING status, artifact with risk assessment, COMPLETED status).
-
----
-
-## Module 2: Building A2A Agents Across Frameworks
-
-Four agents total: three remote specialists and one Client Agent that routes to them.
-
-```
-User -> Client Agent (port 9996) -> A2A -> Triage Agent (port 9999)
-                                        -> Contract Review Agent (port 9998)
-                                        -> Compliance Checker Agent (port 9997)
-```
-
-| Agent | Role | Framework | Port |
-|---|---|---|---|
-| Document Triage | Remote Agent | OpenAI Agents SDK | 9999 |
-| Contract Review | Remote Agent | LangGraph | 9998 |
-| Compliance Checker | Remote Agent | CrewAI | 9997 |
-| Document Processing Client | Client Agent | A2A SDK + OpenAI | 9996 |
-
-### Files
-
-```
-Module2/
-  triage_agent.py               # OpenAI Agents SDK: classification logic
-  a2a_triage_agent.py           # A2A server for triage agent (port 9999)
-  contract_review_graph.py      # LangGraph: two-node analysis graph
-  a2a_contract_review_agent.py  # A2A server using langgraph-a2a-server (port 9998)
-  a2a_compliance_agent.py       # CrewAI agent + A2A server (port 9997)
-  a2a_client_agent.py           # Client Agent: discovers remotes, routes requests (port 9996)
-  user.py                       # "User" role: sends requests to the Client Agent
-  requirements.txt              # All dependencies
-  .env.example                  # Template for API key
-```
-
-### Setup
-
-```bash
-cd Module2
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-# Edit .env and paste your OpenAI API key
-```
-
-### Running the Full System
-
-Open five terminal tabs. In each, activate the venv first:
-
-```bash
-cd Module2 && source .venv/bin/activate
-```
-
-**Terminal 1 - Triage Agent (OpenAI Agents SDK):**
-```bash
-python a2a_triage_agent.py
-```
-
-**Terminal 2 - Contract Review Agent (LangGraph):**
-```bash
-python a2a_contract_review_agent.py
-```
-
-**Terminal 3 - Compliance Checker Agent (CrewAI):**
-```bash
-python a2a_compliance_agent.py
-```
-
-**Terminal 4 - Client Agent:**
-```bash
-python a2a_client_agent.py
-```
-
-You should see it discover all three remote agents at startup:
-```
-Starting A2A Client Agent
-Discovering remote agents...
-  Discovered: DocumentTriageAgent at http://localhost:9999
-  Discovered: ContractReviewAgent at http://localhost:9998
-  Discovered: ComplianceCheckerAgent at http://localhost:9997
-Discovered 3 remote agent(s)
-```
-
-**Terminal 5 - Run as the user:**
-```bash
-python user.py
-```
-
-### Verifying Agent Cards
-
-With the servers running, you can curl any agent card:
-
-```bash
-curl -s http://localhost:9999/.well-known/agent-card.json | python -m json.tool
-curl -s http://localhost:9998/.well-known/agent-card.json | python -m json.tool
-curl -s http://localhost:9997/.well-known/agent-card.json | python -m json.tool
-curl -s http://localhost:9996/.well-known/agent-card.json | python -m json.tool
-```
-
----
-
-## Module 3: Orchestration Patterns and Multi-Agent Workflows
-
-Evolves the Module 2 Client Agent into a full orchestrator with task decomposition, hierarchical delegation, and retry logic. Uses the same remote agents from Module 2.
-
-```
-User -> Orchestrator (port 9996) -> A2A -> Triage Agent (port 9999)
-                                        -> Contract Review Agent (port 9998) -> A2A -> Compliance Agent (port 9997)
-                                        -> Compliance Agent (port 9997)
-```
-
-### Files
-
-```
-Module3/
-  a2a_orchestrator_agent.py              # Orchestrator with decomposition, aggregation, retries (port 9996)
-  a2a_contract_review_hierarchical.py    # Contract review with hierarchical delegation (port 9998)
-  user_orchestrator.py                   # User script with complex multi-agent requests
-  requirements.txt                       # Dependencies (same as Module 2)
-  .env.example                           # Template for API key
-```
-
-### Setup
-
-```bash
-cd Module3
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-# Edit .env and paste your OpenAI API key
-```
-
-### Running the Full System
-
-Reuse the Module 2 triage agent (port 9999) and compliance agent (port 9997). Replace the contract review agent and Client Agent with Module 3 versions.
-
-**Terminal 1 - Triage Agent (from Module 2):**
-```bash
-cd Module2 && source .venv/bin/activate
-python a2a_triage_agent.py
-```
-
-**Terminal 2 - Compliance Checker Agent (from Module 2):**
-```bash
-cd Module2 && source .venv/bin/activate
-python a2a_compliance_agent.py
-```
-
-**Terminal 3 - Contract Review Agent (hierarchical, Module 3):**
-```bash
-cd Module3 && source .venv/bin/activate
-python a2a_contract_review_hierarchical.py
-```
-
-**Terminal 4 - Orchestrator Agent (Module 3):**
-```bash
-cd Module3 && source .venv/bin/activate
-python a2a_orchestrator_agent.py
-```
-
-**Terminal 5 - Run as the user:**
-```bash
-cd Module3 && source .venv/bin/activate
-python user_orchestrator.py
-```
-
-### Failure Handling Demo
-
-To simulate a failure for testing retry logic:
-1. Stop the compliance agent (kill Terminal 2)
-2. Run `python user_orchestrator.py` and send request 3
-3. The orchestrator retries three times, then returns partial results with a failure note
-4. Restart the compliance agent and run the same request to show recovery
-
----
-
-## Module 4: Security, Testing, and Production Deployment
-
-Secures the agents with authentication and audit logging, tests with A2A Inspector and pytest, and deploys to production with Agent Stack.
-
-### Files
-
-```
-Module4/
-  a2a_triage_agent_secured.py   # Triage agent with bearer auth + audit logging (Clip 1)
-  test_protocol.py              # Pytest tests for agent card + lifecycle (Clip 2)
-  agent_stack_triage.py         # Triage agent wrapped with Agent Stack SDK (Clip 3)
-  Dockerfile                    # Container for Agent Stack deployment (Clip 3)
-  requirements.txt              # Dependencies for secured agent + tests
-  requirements-agentstack.txt   # Dependencies for Agent Stack wrapper
-  .env.example                  # Template for API key + bearer token
-```
-
-### Setup
-
-```bash
-cd Module4
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-# Edit .env and paste your OpenAI API key
-```
-
-### Running the Secured Agent
-
-The secured agent needs `triage_agent.py` from Module 2 in the same directory (or on the Python path).
-
-```bash
-# Copy the triage logic from Module 2
-cp ../Module2/triage_agent.py .
-
-# Start the secured agent
-python a2a_triage_agent_secured.py
-```
-
-Test with curl (no token = rejected):
-```bash
-curl -s -X POST http://localhost:9999/ -H "Content-Type: application/json" -d '{}'
-```
-
-Test with curl (valid token = accepted):
-```bash
-curl -s http://localhost:9999/.well-known/agent-card.json | python -m json.tool
-```
-
-The agent card endpoint is public (no auth required). All other endpoints require the bearer token.
-
-### Running the A2A Inspector
-
-```bash
-git clone https://github.com/a2aproject/a2a-inspector.git
-cd a2a-inspector
-docker build -t a2a-inspector .
-docker run -d --network host --name a2a-inspector a2a-inspector
-```
-
-In Codespaces, go to the **Ports** tab, find port 8080, and click the globe icon to open the Inspector in your browser. For the agent URL in the Inspector UI, copy the forwarded URL for port 9999 from the Ports tab (looks like `https://your-codespace-9999.app.github.dev/`). The `--network host` flag lets the Inspector reach agents on localhost when sending messages.
-
-### Running the Tests
-
-With an agent running on port 9999:
-```bash
-pytest test_protocol.py -v
-```
-
-### Agent Stack Deployment
-
-If Agent Stack is installed:
-```bash
-agentstack add .
-agentstack list
-agentstack run document-triage "This is a vendor agreement with an SLA."
-agentstack ui
-```
-
----
-
-## License
-
-Apache License 2.0 - See [LICENSE](LICENSE) for details.
