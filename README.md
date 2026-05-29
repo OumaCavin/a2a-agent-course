@@ -2,6 +2,9 @@
 
 ![A2A Protocol Banner](a2a-banner.png)
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/OumaCavin/a2a-multi-agent-system)
+[![GitHub Actions](https://github.com/OumaCavin/a2a-multi-agent-system/actions/workflows/vercel.yml/badge.svg)](https://github.com/OumaCavin/a2a-multi-agent-system/actions)
+
 Build intelligent multi-agent systems using the Agent-to-Agent (A2A) protocol. This project demonstrates how to create, orchestrate, and deploy AI agents across multiple frameworks including OpenAI Agents SDK, LangGraph, and CrewAI.
 
 ---
@@ -560,6 +563,54 @@ pip install -r requirements.txt
 ## License
 
 Apache License 2.0 - See [LICENSE](LICENSE) for details.
+
+---
+
+## Deployment
+
+### Vercel Deployment
+
+This project includes automated deployment to Vercel via GitHub Actions. The dashboard is deployed as a static site.
+
+#### Setup Instructions
+
+1. **Fork or use this repository** on GitHub
+
+2. **Create a Vercel account** at [vercel.com](https://vercel.com) if you don't have one
+
+3. **Import the project** to Vercel:
+   - Go to [vercel.com/new](https://vercel.com/new)
+   - Import `OumaCavin/a2a-multi-agent-system`
+   - Vercel will automatically detect the `vercel.json` configuration
+
+4. **Configure environment variables** (if needed for future features):
+   - In Vercel dashboard, go to Settings > Environment Variables
+   - Add any required variables
+
+5. **Deploy**:
+   - Click "Deploy" to trigger your first deployment
+   - Subsequent deployments happen automatically on push to `main`
+
+#### GitHub Actions Setup
+
+The workflow uses these secrets (configure in GitHub > Settings > Secrets):
+
+| Secret | Description |
+|--------|-------------|
+| `VERCEL_TOKEN` | Your Vercel API token from [vercel.com/account/tokens](https://vercel.com/account/tokens) |
+| `VERCEL_ORG_ID` | Your Vercel organization ID |
+| `VERCEL_PROJECT_ID` | Your Vercel project ID |
+
+To get these values:
+1. Run `vercel login` in your terminal
+2. Run `vercel link` in the project directory
+3. Find the values in `.vercel/project.json`
+
+#### Production URL
+
+Once deployed, the production URL will be:
+- Listed in the GitHub Actions deployment summary
+- Available in your Vercel dashboard
 
 ---
 
