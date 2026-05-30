@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A2A Multi-Agent System Dashboard</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -27,10 +23,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .header h1 {
-            font-size: 24px;
-            font-weight: 600;
-        }
+        .header h1 { font-size: 24px; font-weight: 600; }
 
         .header .badge {
             background: #4ECDC4;
@@ -47,195 +40,9 @@
             padding: 40px;
         }
 
-        .intro {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .intro h2 {
-            font-size: 32px;
-            margin-bottom: 16px;
-        }
-
-        .intro p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 18px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .modules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-
-        .module-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .module-card:hover {
-            transform: translateY(-4px);
-            border-color: #4ECDC4;
-        }
-
-        .module-card h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: #4ECDC4;
-        }
-
-        .module-card .description {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 16px;
-            line-height: 1.5;
-        }
-
-        .module-card .ports {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .port-badge {
-            background: rgba(78, 205, 196, 0.2);
-            color: #4ECDC4;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-family: monospace;
-        }
-
-        .module-card .status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #666;
-        }
-
-        .status-dot.running {
-            background: #4ECDC4;
-            box-shadow: 0 0 10px #4ECDC4;
-        }
-
-        .status-dot.stopped {
-            background: #ff6b6b;
-        }
-
-        .status-text {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .framework-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-right: 8px;
-        }
-
-        .framework-badge.openai {
-            background: rgba(0, 221, 0, 0.2);
-            color: #00dd00;
-        }
-
-        .framework-badge.langgraph {
-            background: rgba(255, 107, 107, 0.2);
-            color: #ff6b6b;
-        }
-
-        .framework-badge.crewai {
-            background: rgba(107, 91, 149, 0.2);
-            color: #b794f4;
-        }
-
-        .architecture {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 40px;
-        }
-
-        .architecture h3 {
-            font-size: 24px;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .flow-diagram {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .agent-node {
-            background: rgba(78, 205, 196, 0.1);
-            border: 2px solid #4ECDC4;
-            border-radius: 12px;
-            padding: 16px 24px;
-            text-align: center;
-            min-width: 150px;
-        }
-
-        .agent-node h4 {
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-
-        .agent-node .port {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
-            font-family: monospace;
-        }
-
-        .arrow {
-            font-size: 24px;
-            color: #4ECDC4;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .feature-card h4 {
-            font-size: 16px;
-            margin-bottom: 8px;
-            color: #4ECDC4;
-        }
-
-        .feature-card p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
-            line-height: 1.5;
-        }
+        .intro { text-align: center; margin-bottom: 40px; }
+        .intro h2 { font-size: 32px; margin-bottom: 16px; }
+        .intro p { color: rgba(255, 255, 255, 0.7); font-size: 18px; max-width: 800px; margin: 0 auto; }
 
         .tech-stack {
             display: flex;
@@ -255,10 +62,178 @@
             font-size: 14px;
         }
 
-        .tech-badge svg {
-            width: 20px;
-            height: 20px;
+        .tech-badge svg { width: 20px; height: 20px; }
+
+        .architecture {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
         }
+
+        .architecture h3 { font-size: 24px; margin-bottom: 24px; text-align: center; }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .agent-node {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid #4ECDC4;
+            border-radius: 12px;
+            padding: 16px 24px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .agent-node h4 { font-size: 14px; margin-bottom: 4px; }
+        .agent-node .port { font-size: 12px; color: rgba(255, 255, 255, 0.5); font-family: monospace; }
+
+        .arrow { font-size: 24px; color: #4ECDC4; }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .module-card:hover { transform: translateY(-4px); border-color: #4ECDC4; }
+        .module-card h3 { font-size: 20px; margin-bottom: 8px; color: #4ECDC4; }
+        .module-card .description { color: rgba(255, 255, 255, 0.7); margin-bottom: 16px; line-height: 1.5; }
+
+        .module-card .ports { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+        .port-badge {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ECDC4;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-family: monospace;
+        }
+
+        .module-card .status { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #666;
+        }
+
+        .status-dot.running { background: #4ECDC4; box-shadow: 0 0 10px #4ECDC4; }
+        .status-dot.stopped { background: #ff6b6b; }
+
+        .status-text { font-size: 14px; color: rgba(255, 255, 255, 0.7); }
+
+        .framework-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .framework-badge.openai { background: rgba(0, 221, 0, 0.2); color: #00dd00; }
+        .framework-badge.langgraph { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+        .framework-badge.crewai { background: rgba(107, 91, 149, 0.2); color: #b794f4; }
+
+        .btn {
+            display: inline-block;
+            background: #4ECDC4;
+            color: #1a1a2e;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 12px;
+        }
+
+        .btn:hover { background: #3dbdb5; transform: scale(1.02); }
+        .btn:active { transform: scale(0.98); }
+
+        .demo-section {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .demo-section h4 { color: #4ECDC4; margin-bottom: 12px; font-size: 16px; }
+
+        .demo-output {
+            background: #0d0d1a;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 13px;
+            min-height: 80px;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            color: #4ECDC4;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .input-group { margin-bottom: 12px; }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+            outline: none;
+            border-color: #4ECDC4;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-card h4 { font-size: 16px; margin-bottom: 8px; color: #4ECDC4; }
+        .feature-card p { font-size: 14px; color: rgba(255, 255, 255, 0.6); line-height: 1.5; }
 
         .footer {
             text-align: center;
@@ -267,32 +242,16 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .footer a {
-            color: #4ECDC4;
-            text-decoration: none;
-        }
+        .footer a { color: #4ECDC4; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
 
-        .footer a:hover {
-            text-decoration: underline;
-        }
+        .console-log { color: #888; font-size: 12px; margin-top: 8px; }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            .flow-diagram {
-                flex-direction: column;
-            }
-
-            .arrow {
-                transform: rotate(90deg);
-            }
+            .container { padding: 20px; }
+            .header { flex-direction: column; gap: 16px; }
+            .flow-diagram { flex-direction: column; }
+            .arrow { transform: rotate(90deg); }
         }
     </style>
 </head>
@@ -334,9 +293,7 @@
         <div class="architecture">
             <h3>System Architecture</h3>
             <div class="flow-diagram">
-                <div class="agent-node">
-                    <h4>User</h4>
-                </div>
+                <div class="agent-node"><h4>User</h4></div>
                 <span class="arrow">→</span>
                 <div class="agent-node" style="border-color: #ff6b6b;">
                     <h4>Orchestrator</h4>
@@ -348,11 +305,13 @@
                     <span class="port">Port 9999</span>
                     <span class="framework-badge openai">OpenAI</span>
                 </div>
+                <span class="arrow">→</span>
                 <div class="agent-node">
                     <h4>Contract Review</h4>
                     <span class="port">Port 9998</span>
                     <span class="framework-badge langgraph">LangGraph</span>
                 </div>
+                <span class="arrow">→</span>
                 <div class="agent-node">
                     <h4>Compliance</h4>
                     <span class="port">Port 9997</span>
@@ -364,13 +323,23 @@
         <div class="modules-grid">
             <div class="module-card">
                 <h3>Module 1: A2A Protocol Architecture</h3>
-                <p class="description">Learn core A2A concepts including agent cards, capability discovery, and task lifecycle. No API key required.</p>
+                <p class="description">Learn core A2A concepts including agent cards, capability discovery, and task lifecycle.</p>
                 <div class="ports">
                     <span class="port-badge">Port 9999</span>
                 </div>
                 <div class="status">
                     <span class="status-dot stopped"></span>
                     <span class="status-text">Demo Only - No API Required</span>
+                </div>
+                <button class="btn" onclick="runModule1Demo()">Try It Out - Agent Discovery</button>
+                <div class="demo-section" id="demo1" style="display: none;">
+                    <h4>Agent Discovery Simulation</h4>
+                    <div class="input-group">
+                        <label>Agent Endpoint:</label>
+                        <input type="text" id="agentEndpoint" value="http://localhost:9999" placeholder="Enter agent URL">
+                    </div>
+                    <button class="btn" onclick="discoverAgent()">Discover Agent</button>
+                    <div class="demo-output" id="output1"></div>
                 </div>
             </div>
 
@@ -381,11 +350,28 @@
                     <span class="port-badge">Port 9999</span>
                     <span class="port-badge">Port 9998</span>
                     <span class="port-badge">Port 9997</span>
-                    <span class="port-badge">Port 9996</span>
                 </div>
                 <div class="status">
                     <span class="status-dot stopped"></span>
                     <span class="status-text">OpenAI API Required</span>
+                </div>
+                <button class="btn" onclick="runModule2Demo()">Try It Out - Task Routing</button>
+                <div class="demo-section" id="demo2" style="display: none;">
+                    <h4>Task Routing Simulation</h4>
+                    <div class="input-group">
+                        <label>Task Type:</label>
+                        <select id="taskType">
+                            <option value="contract_review">Contract Review</option>
+                            <option value="compliance_check">Compliance Check</option>
+                            <option value="risk_assessment">Risk Assessment</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Input Text:</label>
+                        <textarea id="taskInput" rows="3" placeholder="Enter text to process...">The vendor agreement contains clauses regarding payment terms, liability limitations, and termination conditions.</textarea>
+                    </div>
+                    <button class="btn" onclick="routeTask()">Route Task</button>
+                    <div class="demo-output" id="output2"></div>
                 </div>
             </div>
 
@@ -400,6 +386,16 @@
                     <span class="status-dot stopped"></span>
                     <span class="status-text">OpenAI API Required</span>
                 </div>
+                <button class="btn" onclick="runModule3Demo()">Try It Out - Task Decomposition</button>
+                <div class="demo-section" id="demo3" style="display: none;">
+                    <h4>Task Decomposition</h4>
+                    <div class="input-group">
+                        <label>Complex Task:</label>
+                        <textarea id="complexTask" rows="3" placeholder="Enter a complex task...">Review the vendor contract, check compliance requirements, assess financial risks, and prepare executive summary.</textarea>
+                    </div>
+                    <button class="btn" onclick="decomposeTask()">Decompose Task</button>
+                    <div class="demo-output" id="output3"></div>
+                </div>
             </div>
 
             <div class="module-card">
@@ -412,6 +408,24 @@
                 <div class="status">
                     <span class="status-dot stopped"></span>
                     <span class="status-text">Bearer Token + Docker</span>
+                </div>
+                <button class="btn" onclick="runModule4Demo()">Try It Out - Auth Test</button>
+                <div class="demo-section" id="demo4" style="display: none;">
+                    <h4>Authentication Simulation</h4>
+                    <div class="input-group">
+                        <label>Bearer Token:</label>
+                        <input type="password" id="bearerToken" placeholder="Enter bearer token..." value="demo-token-12345">
+                    </div>
+                    <div class="input-group">
+                        <label>Request Type:</label>
+                        <select id="requestType">
+                            <option value="agent-card">GET Agent Card</option>
+                            <option value="task-create">POST Task Create</option>
+                            <option value="task-status">GET Task Status</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="testAuth()">Test Authentication</button>
+                    <div class="demo-output" id="output4"></div>
                 </div>
             </div>
         </div>
@@ -445,11 +459,213 @@
     </div>
 
     <footer class="footer">
-        <p>A2A Multi-Agent System |
-        <a href="https://github.com/OumaCavin/a2a-multi-agent-system">View on GitHub</a></p>
+        <p>A2A Multi-Agent System | <a href="https://github.com/OumaCavin/a2a-multi-agent-system">View on GitHub</a></p>
         <p style="margin-top: 8px; font-size: 12px;">Developed by <a href="https://github.com/OumaCavin">Cavin Otieno</a></p>
         <p style="margin-top: 4px; font-size: 11px; color: rgba(255, 255, 255, 0.3);">Built with Agent-to-Agent Protocol</p>
     </footer>
+
+    <script>
+        // Demo 1: Agent Discovery
+        function runModule1Demo() {
+            const demo = document.getElementById('demo1');
+            demo.style.display = demo.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function discoverAgent() {
+            const endpoint = document.getElementById('agentEndpoint').value;
+            const output = document.getElementById('output1');
+
+            output.textContent = 'Initiating discovery...\n';
+
+            setTimeout(() => {
+                output.textContent += `Connecting to: ${endpoint}\n`;
+            }, 300);
+
+            setTimeout(() => {
+                output.textContent += 'Fetching .well-known/agent-card.json...\n';
+            }, 600);
+
+            setTimeout(() => {
+                const agentCard = {
+                    name: "DocumentTriageAgent",
+                    version: "1.0.0",
+                    capabilities: ["document_triage", "classification", "routing"],
+                    skills: ["legal_review", "contract_analysis", "compliance_check"],
+                    endpoint: endpoint,
+                    protocol: "A2A"
+                };
+                output.textContent += '\n--- Agent Card Response ---';
+                output.textContent += `\nName: ${agentCard.name}`;
+                output.textContent += `\nVersion: ${agentCard.version}`;
+                output.textContent += `\nCapabilities: ${agentCard.capabilities.join(", ")}`;
+                output.textContent += `\nSkills: ${agentCard.skills.join(", ")}`;
+                output.textContent += `\nProtocol: ${agentCard.protocol}`;
+                output.textContent += '\n----------------------------\n';
+                output.textContent += '\nAgent discovery successful!';
+            }, 1000);
+        }
+
+        // Demo 2: Task Routing
+        function runModule2Demo() {
+            const demo = document.getElementById('demo2');
+            demo.style.display = demo.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function routeTask() {
+            const taskType = document.getElementById('taskType').value;
+            const taskInput = document.getElementById('taskInput').value;
+            const output = document.getElementById('output2');
+
+            output.textContent = 'Analyzing task...\n';
+
+            setTimeout(() => {
+                output.textContent += `Task Type: ${taskType}\n`;
+                output.textContent += `Input Length: ${taskInput.length} characters\n`;
+            }, 300);
+
+            setTimeout(() => {
+                output.textContent += 'Routing to specialized agent...\n';
+            }, 600);
+
+            setTimeout(() => {
+                const agentRoutes = {
+                    'contract_review': { agent: 'ContractReviewAgent', port: 9998, framework: 'LangGraph' },
+                    'compliance_check': { agent: 'ComplianceCheckerAgent', port: 9997, framework: 'CrewAI' },
+                    'risk_assessment': { agent: 'DocumentTriageAgent', port: 9999, framework: 'OpenAI' }
+                };
+
+                const route = agentRoutes[taskType];
+                output.textContent += '\n--- Route Decision ---';
+                output.textContent += `\nAssigned Agent: ${route.agent}`;
+                output.textContent += `\nEndpoint: localhost:${route.port}`;
+                output.textContent += `\nFramework: ${route.framework}`;
+                output.textContent += '\n---------------------\n';
+
+                // Simulate processing
+                const keywords = taskInput.toLowerCase().split(' ');
+                const risks = keywords.filter(w => ['liability', 'risk', 'termination', 'penalty', 'breach'].includes(w)).length;
+
+                output.textContent += '\nProcessing results:\n';
+                output.textContent += `- Keywords analyzed: ${keywords.length}\n`;
+                output.textContent += `- Risk factors found: ${risks}\n`;
+                output.textContent += `- Risk level: ${risks > 2 ? 'HIGH' : risks > 0 ? 'MEDIUM' : 'LOW'}\n`;
+            }, 1000);
+        }
+
+        // Demo 3: Task Decomposition
+        function runModule3Demo() {
+            const demo = document.getElementById('demo3');
+            demo.style.display = demo.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function decomposeTask() {
+            const task = document.getElementById('complexTask').value;
+            const output = document.getElementById('output3');
+
+            output.textContent = 'Decomposing complex task...\n';
+
+            setTimeout(() => {
+                output.textContent += 'Analyzing task structure...\n';
+            }, 300);
+
+            setTimeout(() => {
+                output.textContent += `Input: ${task.substring(0, 50)}...\n`;
+            }, 500);
+
+            setTimeout(() => {
+                output.textContent += '\n--- Task Decomposition ---\n';
+
+                const subtasks = [
+                    { id: 1, name: 'Contract Review', agent: 'ContractReviewAgent', priority: 'high', status: 'pending' },
+                    { id: 2, name: 'Compliance Check', agent: 'ComplianceCheckerAgent', priority: 'high', status: 'pending' },
+                    { id: 3, name: 'Risk Assessment', agent: 'DocumentTriageAgent', priority: 'medium', status: 'pending' },
+                    { id: 4, name: 'Summary Generation', agent: 'Orchestrator', priority: 'low', status: 'pending' }
+                ];
+
+                subtasks.forEach((st, i) => {
+                    setTimeout(() => {
+                        output.textContent += `\n[${st.id}] ${st.name}`;
+                        output.textContent += `\n    Agent: ${st.agent}`;
+                        output.textContent += `\n    Priority: ${st.priority}`;
+                        output.textContent += `\n    Status: ${st.status}\n`;
+                    }, (i + 1) * 400);
+                });
+            }, 800);
+
+            setTimeout(() => {
+                output.textContent += '\n--- Dependency Graph ---';
+                output.textContent += '\n[1] ──┬──> [4]';
+                output.textContent += '\n[2] ──┘';
+                output.textContent += '\n[3] ──> [4]';
+                output.textContent += '\n---------------------';
+                output.textContent += '\n\nTask decomposition complete!';
+            }, 2200);
+        }
+
+        // Demo 4: Authentication Test
+        function runModule4Demo() {
+            const demo = document.getElementById('demo4');
+            demo.style.display = demo.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function testAuth() {
+            const token = document.getElementById('bearerToken').value;
+            const requestType = document.getElementById('requestType').value;
+            const output = document.getElementById('output4');
+
+            output.textContent = 'Testing authentication...\n';
+
+            setTimeout(() => {
+                output.textContent += `Request Type: ${requestType}\n`;
+                output.textContent += `Token: ${token.substring(0, 8)}****\n`;
+            }, 300);
+
+            setTimeout(() => {
+                output.textContent += 'Validating token...\n';
+            }, 600);
+
+            setTimeout(() => {
+                if (token.length >= 5) {
+                    output.textContent += '\n--- Auth Response ---';
+                    output.textContent += '\nStatus: 200 OK';
+                    output.textContent += '\nAuth: VALID';
+                    output.textContent += '\nToken Type: Bearer';
+                    output.textContent += '\nExpiry: 3600s';
+                    output.textContent += '\n---------------------\n';
+
+                    const responses = {
+                        'agent-card': JSON.stringify({
+                            name: "DocumentTriageAgent",
+                            version: "1.0.0",
+                            capabilities: ["document_triage"]
+                        }, null, 2),
+                        'task-create': JSON.stringify({
+                            taskId: "task_" + Date.now(),
+                            status: "submitted",
+                            created: new Date().toISOString()
+                        }, null, 2),
+                        'task-status': JSON.stringify({
+                            taskId: "task_12345",
+                            status: "WORKING",
+                            progress: "45%"
+                        }, null, 2)
+                    };
+
+                    output.textContent += '\n--- Response Body ---';
+                    output.textContent += '\n' + responses[requestType];
+                    output.textContent += '\n---------------------';
+                } else {
+                    output.textContent += '\n--- Auth Response ---';
+                    output.textContent += '\nStatus: 401 Unauthorized';
+                    output.textContent += '\nError: Invalid token';
+                    output.textContent += '\n---------------------';
+                }
+            }, 1000);
+        }
+
+        // Initialize with welcome message
+        console.log('A2A Multi-Agent System Dashboard loaded successfully');
+    </script>
 
 <script>
 /**
